@@ -1,0 +1,5 @@
+Flask>=3.1.2
+Pillow>=10.4.0
+cryptography>=43.0.1
+numpy>=2.1.1
+gunicorn>=23.0.0
