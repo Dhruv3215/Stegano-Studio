@@ -1,0 +1,152 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Stegano Studio Web</title>
+
+  <!-- Tailwind (CDN quick-start) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Feather icons -->
+  <script src="https://unpkg.com/feather-icons"></script>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="bg-gray-900 text-gray-200 antialiased">
+  <div class="max-w-5xl mx-auto py-10 px-4">
+
+    <header class="mb-6 text-center">
+      <h1 class="text-3xl font-extrabold text-cyan-400">Stegano Studio</h1>
+      <p class="text-sm font-bold text-white-400 mt-1">By cyber_jarvis</p>
+    </header>
+
+    <nav class="flex justify-center mb-6">
+      <div class="inline-flex rounded-lg bg-gray-800 p-1">
+        <button class="tab-btn px-4 py-2 text-sm rounded-md text-cyan-200 active" data-tab="embed">Embed</button>
+        <button class="tab-btn px-4 py-2 text-sm rounded-md text-gray-300" data-tab="extract">Extract</button>
+        <button class="tab-btn px-4 py-2 text-sm rounded-md text-gray-300" data-tab="history">History</button>
+      </div>
+    </nav>
+
+    <!-- EMBED -->
+    <section id="embed" class="tab">
+      <div class="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-6 shadow-lg max-w-4xl mx-auto">
+        <form id="embed_form" class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-300 mb-1">Carrier File (click or drop here)</label>
+            <div id="carrier_drop" class="relative border-2 border-dashed border-gray-700 rounded-md p-4">
+              <input id="carrier_input" type="file" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
+              <div class="pointer-events-none text-sm text-gray-400">Drop an image here or click to select.</div>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-300 mb-1">Embedding Mode</label>
+            <select id="embed_mode" class="w-full p-2 rounded-md bg-gray-900 text-gray-100 border border-gray-700">
+              <option value="eof">End-of-file (append marker & payload)</option>
+              <option value="lsb">LSB (pixel LSB embedding) — lossless images only (PNG/BMP)</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-300 mb-1">Secret Text</label>
+            <textarea id="secret_text" rows="6"
+              class="w-full p-3 rounded-md bg-gray-900 text-gray-100 border border-gray-700"
+              placeholder="Type your secret here..."></textarea>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-300 mb-1">Secret Files (optional)</label>
+            <input id="secret_files_input" type="file" multiple
+              class="block w-full text-sm text-gray-300 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-pink-600 file:text-white hover:file:bg-pink-500" />
+          </div>
+
+          <div class="flex items-center gap-3">
+            <input id="encrypt_cb" type="checkbox" class="h-4 w-4 text-cyan-500 rounded">
+            <label for="encrypt_cb" class="text-sm text-gray-300">Encrypt payload </label>
+            <input id="password_input" type="password" placeholder="Password (min 10 chars)"
+              class="ml-auto p-2 rounded-md bg-gray-900 text-gray-100 border border-gray-700" disabled />
+          </div>
+
+          <p id="capacity_label" class="text-sm text-yellow-400 font-medium">Capacity: carrier — ?, payload — ?</p>
+
+          <div class="flex justify-center gap-4 mt-4">
+            <button id="embed_btn" type="button"
+              class="flex items-center gap-2 px-6 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-lg text-white font-semibold shadow">
+              <i data-feather="upload"></i> Embed & Save
+            </button>
+            <button id="reset_btn" type="button"
+              class="px-6 py-2 bg-gray-700 rounded-lg text-gray-200 hover:bg-gray-600">Reset</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- EXTRACT -->
+    <section id="extract" class="tab hidden mt-6">
+      <div class="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-6 shadow-lg max-w-4xl mx-auto space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-300 mb-1">Stego File (click or drop here)</label>
+          <div id="stego_drop" class="relative border-2 border-dashed border-gray-700 rounded-md p-4">
+            <input id="stego_input" type="file" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
+            <div class="pointer-events-none text-sm text-gray-400">Drop the stego file here or click to select.</div>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-300 mb-1">Password (if encrypted or used for LSB)</label>
+          <input id="extract_password" type="password" placeholder="Enter password if payload is encrypted or for LSB PRNG"
+            class="w-full p-2 rounded-md bg-gray-900 text-gray-100 border border-gray-700" />
+        </div>
+
+        <div class="flex gap-3">
+          <button id="extract_btn" class="px-4 py-2 bg-green-600 rounded-lg text-white inline-flex items-center gap-2">
+            <i data-feather="download"></i> Extract (Preview)
+          </button>
+          <button id="extract_reset_btn" class="px-4 py-2 bg-gray-700 rounded-lg text-gray-200">Reset</button>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-300 mb-1">Files in embedded archive</label>
+          <div id="file_list" class="bg-gray-900 p-3 rounded-md max-h-64 overflow-y-auto text-sm">
+            <!-- Populated by JS: checkbox + clickable filename (single-select) -->
+          </div>
+          <p class="text-xs text-gray-500 mt-1">Tip: click a filename to mark it as the “Selected File”. Checkboxes are for multi-save.</p>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-300 mb-1">Secret Text Preview</label>
+          <textarea id="preview_box" readonly class="w-full p-3 rounded-md bg-gray-900 text-gray-100 border border-gray-700 max-h-40"></textarea>
+        </div>
+
+        <div class="flex gap-3 justify-center">
+          <button id="save_checked_btn" class="px-4 py-2 bg-indigo-600 rounded-lg text-white">Save Checked Files</button>
+          <button id="save_selected_btn" class="px-4 py-2 bg-indigo-600 rounded-lg text-white">Save Selected File</button>
+          <button id="save_zip_btn" class="px-4 py-2 bg-indigo-600 rounded-lg text-white">Save Whole Zip</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- HISTORY -->
+    <section id="history" class="tab hidden mt-6">
+      <div class="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-6 shadow-lg max-w-4xl mx-auto">
+        <h2 class="text-xl font-semibold mb-4">History</h2>
+        <div id="history_box" class="bg-black text-green-400 font-mono text-sm p-3 rounded-md max-h-80 overflow-y-auto whitespace-pre-wrap">
+          {{ history_html|safe }}
+        </div>
+        <div class="flex justify-center mt-4">
+          <button id="clear_history_btn" class="px-6 py-2 bg-red-600 rounded-lg text-white">Clear History</button>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="hidden fixed bottom-6 right-6 px-4 py-2 rounded-lg shadow"></div>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+  <script>feather.replace()</script>
+</body>
+</html>
