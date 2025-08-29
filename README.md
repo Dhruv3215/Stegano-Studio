@@ -64,7 +64,7 @@ Features
 Tech Stack
 -----------
 
-| Component        | Version      | Description |
+| Component        | Version      | Description                                                          |
 | ---------------- | ------------ | -------------------------------------------------------------------- |
 | Frontend         | Tailwind CSS | CSS framework for styling and layout                                 |
 | Backend          | Flask        | Python web framework for building the web application                |
