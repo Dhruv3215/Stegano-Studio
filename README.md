@@ -91,26 +91,39 @@ How to Run
 ⚙️ Local Installation
 
 1. Clone repository:
+```
     git clone https://github.com/Dhruv3215/stegano-studio.git
     cd stegano-studio
+```
 
 2. Create virtual environment & install dependencies:
+```
     python -m venv venv
     source venv/bin/activate   # (Linux/Mac)
     venv\Scripts\activate      # (Windows)
+```
 
 3. Install dependencies:
+```
    pip install -r requirements.txt
+```
 
 4. Run the Flask app:
+```
    python app.py
+``` 
 
 6. Open browser:
+```
    http://127.0.0.1:5000
+```
    
 🚀 Live Demo
    
-   app will be accessible at:  👉 https://stegano-studio.onrender.com
+   app will be accessible at: 
+   ```
+      👉 https://stegano-studio.onrender.com
+   ```
  
 
 API Reference
