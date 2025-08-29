@@ -76,14 +76,14 @@ Tech Stack
 Project Structure
 ---------------
 
- app.py: Main application file for the web interface
- stegano_core.py: Core library for steganography algorithms and payload generation
- style.css: CSS file for custom styling and layout
- app.js: JavaScript file for client-side functionality and toast notifications
- index.html: HTML file for the web interface
- images: Directory for storing and serving images
- payloads: Directory for storing and serving payload files
- static: Directory for storing static files, such as CSS and JavaScript files
+ app.py: Main application file for the web interface  
+ stegano_core.py: Core library for steganography algorithms and payload generation  
+ style.css: CSS file for custom styling and layout  
+ app.js: JavaScript file for client-side functionality and toast notifications  
+ index.html: HTML file for the web interface  
+ images: Directory for storing and serving images  
+ payloads: Directory for storing and serving payload files  
+ static: Directory for storing static files, such as CSS and JavaScript files  
 
 How to Run
 ------------
@@ -130,9 +130,9 @@ How to Run
 API Reference
 -------------
 
- /stegano: Endpoint for generating and hiding payloads
- /payloads: Endpoint for downloading and extracting payloads
- /images: Endpoint for displaying and processing images
+ /stegano: Endpoint for generating and hiding payloads  
+ /payloads: Endpoint for downloading and extracting payloads  
+ /images: Endpoint for displaying and processing images  
 
 ⚠️ Disclaimer
 -------------
