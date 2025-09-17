@@ -122,7 +122,7 @@ How to Run
 -----------------
    app will be accessible at: 
       👉🏻👉🏻👉🏻
-      [`Stegano-Studio`](https://stegano-studio-1xdr.onrender.com/)
+      [`Stegano-Studio`](https://stegano-studios.onrender.com/)
       👈🏻👈🏻👈🏻
 
 API Reference
